@@ -73,6 +73,7 @@ public class Crawl {
     		}
     		catch(Exception e){
     			System.err.println("Error in getLinks(): " + e.getMessage());
+    			continue;
     		}
 			String[] urlParts = url.getHost().split("\\.");	
 			if( urlParts[urlParts.length-1].toString().contentEquals("edu") ){

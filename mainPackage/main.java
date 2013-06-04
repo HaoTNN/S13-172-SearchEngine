@@ -24,6 +24,7 @@ public class main {
     private static int maxPages = 1000;
     private static String dirName = "hnguy067";
 	private static int counter = -1;
+	private static int numThreads = 49;
 
     public static void main(String[] args){
     	if( args.length != 4 ){
@@ -56,31 +57,33 @@ public class main {
         File dir = new File(dirName);
         dir.mkdir();
         
-        Thread t0 = new Thread(new threadCrawl());
-        Thread t1 = new Thread(new threadCrawl());
-        Thread t2 = new Thread(new threadCrawl());
+        System.out.println("Initializing threads...");
+        Thread threadArray[] = new Thread[100];
+        for( int i = 0; i < numThreads; ++i ){
+        	threadArray[i] = new Thread(new threadCrawl());
+        }
         
         threadCrawl mainThread = new threadCrawl();
         
         long startTime = System.currentTimeMillis();
-        
-        t0.start();
-        t1.start();
-        t2.start();
-        
+
+        for( int i = 0; i < numThreads; ++i ){
+        	threadArray[i].start();
+        }
+
         mainThread.run();
         
         try{
-        	t0.join();
-        	t1.join();
-        	t2.join();
+        	for( int i = 0 ; i < numThreads; ++i ){
+        		threadArray[i].join();
+        	}
         }
         catch( Exception e ){
         	System.out.println("Error in joining: " + e.getMessage());
         }
         
-        //long endTime = System.currentTimeMillis();
-        //long totalTime = endTime - startTime;
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
     }
     
     private static class threadCrawl implements Runnable{
