@@ -24,6 +24,9 @@ public class main {
     private static int maxPages = 1000;
     private static String dirName = "hnguy067";
 	private static int counter = -1;
+	
+	//TODO: Have user specify number of threads to use. We'll leave the default @ 49
+	//if they don't put anything in.
 	private static int numThreads = 49;
 
     public static void main(String[] args){
@@ -58,7 +61,7 @@ public class main {
         dir.mkdir();
         
         System.out.println("Initializing threads...");
-        Thread threadArray[] = new Thread[100];
+        Thread threadArray[] = new Thread[numThreads];
         for( int i = 0; i < numThreads; ++i ){
         	threadArray[i] = new Thread(new threadCrawl());
         }
