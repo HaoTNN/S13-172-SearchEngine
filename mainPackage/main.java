@@ -27,7 +27,7 @@ public class main {
 	
 	//TODO: Have user specify number of threads to use. We'll leave the default @ 49
 	//if they don't put anything in.
-	private static int numThreads = 49;
+	private static int numThreads = 99;
 
     public static void main(String[] args){
     	if( args.length != 4 ){

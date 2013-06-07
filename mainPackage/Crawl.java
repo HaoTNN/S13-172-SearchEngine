@@ -7,7 +7,7 @@ import org.jsoup.select.*;
 import java.io.*;
 import java.util.*;
 import java.net.URL;
-import java.util.regex.Pattern;
+import java.net.MalformedURLException;
 
 public class Crawl {
     public Crawl(){
@@ -29,7 +29,7 @@ public class Crawl {
             return true;
         }
         catch(Exception e){
-            System.err.println("Error in void connect(String url): " + e.getMessage());
+            System.err.println("Error in void connect(String url): " + e.getMessage() + "\n" + url);
             return false;
         }
     }
@@ -67,18 +67,21 @@ public class Crawl {
 		//(com, edu, org, etc.) Using the last element, we can filter out
 		//non .edu pages.
     	for( Element link : links ) {
-    		URL url = null;
-    		try{
-    			url = new URL( link.attr("abs:href") );
+    		//TODO: Below code is straight up ugly. Rewrite it
+    		String urlString = link.attr("abs:href");
+    		if( urlString.length() > 0 ){
+    			URL url = null;
+    			try{
+    				url = new URL(urlString);
+    			}
+    			catch(MalformedURLException e){
+    				System.err.println("Error in getLinks(): " + e.getMessage());
+    			}
+    			String[] urlParts = url.getHost().split("\\.");	
+				if( urlParts[urlParts.length-1].toString().contentEquals("edu") ){
+					arrayOfLinks.add(url.toString());
+				}
     		}
-    		catch(Exception e){
-    			System.err.println("Error in getLinks(): " + e.getMessage());
-    			continue;
-    		}
-			String[] urlParts = url.getHost().split("\\.");	
-			if( urlParts[urlParts.length-1].toString().contentEquals("edu") ){
-				arrayOfLinks.add(url.toString());
-			}
     	}
     	return arrayOfLinks;
     }
