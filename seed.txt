@@ -1,3 +1,10 @@
 http://www.cs.ucr.edu/~schen064/
 http://www.ucr.edu
 http://www.ucla.edu
+http://www.ucsd.edu/
+http://www.berkeley.edu/
+http://www.ucmerced.edu/
+http://www.ucsb.edu/
+http://www.ucsc.edu/
+http://www.uci.edu/
+http://www.ucdavis.edu/

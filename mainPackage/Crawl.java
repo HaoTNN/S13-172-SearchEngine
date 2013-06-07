@@ -79,7 +79,7 @@ public class Crawl {
     			}
     			String[] urlParts = url.getHost().split("\\.");	
 				if( urlParts[urlParts.length-1].toString().contentEquals("edu") ){
-					arrayOfLinks.add(url.toString());
+					arrayOfLinks.add( url.getProtocol()+ "://" + url.getHost() + url.getPath() );
 				}
     		}
     	}
